@@ -1,0 +1,8 @@
+---
+
+# [Production]
+- name: "OS default Settings"
+  hosts: production
+  become: yes
+  roles:
+    - init_setting

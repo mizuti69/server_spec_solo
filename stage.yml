@@ -1,0 +1,7 @@
+---
+# [Stage]
+- name: "OS default Settings"
+  hosts: stage
+  become: yes
+  roles:
+    - init_setting

@@ -1,0 +1,7 @@
+---
+# [Develop]
+- name: "OS default Settings"
+  hosts: develop
+  roles:
+    - dev_setting
+

@@ -1,0 +1,16 @@
+---
+-
+  # production 
+  #playbook: production.yml
+  #inventory: hosts/production
+  #vars_dirs_path: group_vars/all
+
+  # stage
+  #playbook: stage.yml
+  #inventory: hosts/stage
+  #vars_dirs_path: group_vars/all
+
+  # develop
+  playbook: develop.yml
+  inventory: hosts/develop
+  vars_dirs_path: group_vars/all

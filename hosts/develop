@@ -1,0 +1,9 @@
+[devwebservers]
+localhost ansible_connection=local
+
+[devdbservers]
+localhost ansible_connection=local
+
+[develop:children]
+devwebservers
+devdbservers

@@ -1,0 +1,22 @@
+---
+
+# [Production]
+- name: "OS default Settings"
+  hosts: production
+  become: yes
+  roles:
+    - init_setting
+
+# [Stage]
+- name: "OS default Settings"
+  hosts: stage
+  become: yes
+  roles:
+    - init_setting
+
+# [Develop]
+- name: "OS default Settings"
+  hosts: develop
+  roles:
+    - dev_setting
+
