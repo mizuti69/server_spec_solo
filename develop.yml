@@ -1,7 +1,7 @@
 ---
 # [Develop]
-- name: "OS default Settings"
-  hosts: develop
+- name: test
+  hosts: devwebservers
   roles:
-    - dev_setting
+    - spec_basic
 

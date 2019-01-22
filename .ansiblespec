@@ -3,14 +3,14 @@
   # production 
   #playbook: production.yml
   #inventory: hosts/production
-  #vars_dirs_path: group_vars/all
+  #vars_dirs_path: group_vars
 
   # stage
   #playbook: stage.yml
   #inventory: hosts/stage
-  #vars_dirs_path: group_vars/all
+  #vars_dirs_path: group_vars
 
   # develop
   playbook: develop.yml
   inventory: hosts/develop
-  vars_dirs_path: group_vars/all
+  vars_dirs_path: group_vars
