@@ -28,7 +28,12 @@ if host_inventory['platform'] == 'redhat'
 end
 
 # os architecture
-describe command("uname -m") do
-  its(:stdout) { should match property['system_architecture_type'] }
+#describe command("uname -m") do
+#  its(:stdout) { should match property['system_architecture_type'] }
+#end
+
+# os kernel version
+describe command("uname -r") do
+  its(:stdout) { should match property['system_kernel_version'] }
 end
 

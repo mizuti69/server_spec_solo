@@ -1,2 +1,25 @@
 ---
 
+# default
+# https://serverspec.org/host_inventory.html
+
+# os cpu core count
+# host_inventory['cpu']['total']
+#system_cpu_core: '1'
+
+# os memory size(MB)
+# host_inventory['memory']['total']
+#system_memory_size: 900
+
+# os swap memory size(MB)
+# host_inventory['memory']['swap']
+#system_swap_size: 900
+
+# os disk size [/] (GB)
+#system_disk_size: 8
+
+# os platform
+#system_platform: CentOS Linux release 7.6.1810 (Core)
+
+# os architecture type
+#system_architecture_type: 'x86_64'

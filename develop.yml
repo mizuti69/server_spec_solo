@@ -1,7 +1,12 @@
 ---
 # [Develop]
-- name: test
-  hosts: devwebservers
+- name: Basic-Test
+  hosts: develop
   roles:
-    - spec_basic
+    - basic_spec
+
+- name: Basic-Os-Test
+  hosts: develop
+  roles:
+    - basic_os
 

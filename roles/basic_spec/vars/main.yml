@@ -7,15 +7,15 @@
 # host_inventory['cpu']['total'] 
 system_cpu_core: '1'
 
-# os memory size(MB)
+# os memory >=size(MB)
 # host_inventory['memory']['total'] 
 system_memory_size: 900
 
-# os swap memory size(MB)
+# os swap memory >=size(MB)
 # host_inventory['memory']['swap']   
 system_swap_size: 900
 
-# os disk size [/] (GB)
+# os disk >=size [/] (GB)
 system_disk_size: 8
 
 # os platform
@@ -24,3 +24,5 @@ system_platform: CentOS Linux release 7.6.1810 (Core)
 # os architecture type
 system_architecture_type: 'x86_64'
 
+# os kernel version
+system_kernel_version: 3.10.0-957.1.3.el7.x86_64
