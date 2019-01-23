@@ -1,1 +1,24 @@
 ---
+
+# NIC name
+system_interface:
+  - enp0s3
+
+# NIC ipv4.method
+system_interface_ipv4method: auto
+system_interface_ipv6method: auto
+
+# name server
+system_resolve:
+  - 10.10.99.13 
+  - 10.101.0.11
+
+# kernel parameter
+system_kernel_disable_ipv6: 0
+system_kernel_icmp_echo_ignore_broadcasts: 1
+system_kernel_accept_source_route: 0
+system_kernel_rp_filter: 1
+system_kernel_tcp_syncookies: 1
+
+# selinux status
+system_selinux: enforcing
