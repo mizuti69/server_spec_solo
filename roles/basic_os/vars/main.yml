@@ -19,6 +19,28 @@ system_kernel_icmp_echo_ignore_broadcasts: 1
 system_kernel_accept_source_route: 0
 system_kernel_rp_filter: 1
 system_kernel_tcp_syncookies: 1
+system_kernel_panic: 0
+
+# boot mode
+system_boot_mode: multi-user.target
 
 # selinux status
 system_selinux: enforcing
+
+# os locale
+system_locale: LANG="ja_JP.UTF-8"
+
+# os time zone
+system_time_zone: JST-9
+
+# systemd parameter
+system_systemd_loglevel: 'LogLevel=info'
+
+# cron
+cron_anacron_range: 3-22
+
+# logrotate
+logrotate_details: week
+logrotate_backlogs: 'rotate 4'
+logrotate_suffix: dateext
+logrotate_compressed: '#compress'
