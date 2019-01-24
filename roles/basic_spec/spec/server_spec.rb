@@ -23,7 +23,7 @@ end
 # os platform
 if host_inventory['platform'] == 'redhat'
   describe file('/etc/redhat-release') do
-  it { should contain property['system_platform'] }
+    its(:content) { should match /#{property['system_platform']}/ }
   end
 end
 

@@ -19,7 +19,7 @@ system_swap_size: 900
 system_disk_size: 8
 
 # os platform
-system_platform: CentOS Linux release 7.6.1810 (Core)
+system_platform: 'CentOS Linux release 7.6.1810'
 
 # os architecture type
 system_architecture_type: 'x86_64'
