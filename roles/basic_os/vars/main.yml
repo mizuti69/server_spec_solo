@@ -36,6 +36,38 @@ system_time_zone: JST-9
 # systemd parameter
 system_systemd_loglevel: 'LogLevel=info'
 
+# os user default home
+system_default_user_home: /home
+
+# password setting
+system_default_pass_minlen: 9
+system_default_pass_dcredit: 1
+system_default_pass_ucredit: 1
+system_default_pass_lcredit: 1
+
+# su/sudo parmission
+system_sudo_set:
+  - '/etc/sudoers.d/default'
+
+# install pakages
+system_package_installs:
+  - bind-utils
+  - git
+
+# yum
+system_yum_exclude:
+system_yum_keepcache: '0'
+system_yum_epel_enable: 'False'
+system_yum_ius_enable: 'False'
+
+# firewalld
+firewalld_zone: --
+firewalld_lockdown: 'no'
+
+# audit
+audit_max_logfile: 8
+audit_num_logs: 5
+
 # cron
 cron_anacron_range: 3-22
 
@@ -44,3 +76,15 @@ logrotate_details: week
 logrotate_backlogs: 'rotate 4'
 logrotate_suffix: dateext
 logrotate_compressed: '#compress'
+
+# ssh
+ssh_permit_rootlogin: 'yes'
+ssh_password_auth: 'yes'
+
+# chrony
+chrony_port: '0'
+chrony_leapsecmode: slew
+
+# sysstat
+sysstat_history: 28
+
