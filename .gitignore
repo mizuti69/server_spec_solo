@@ -1,3 +1,4 @@
 # exclude
-.bundle/
 vendor/
+.ssh/
+!.ssh/config

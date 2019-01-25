@@ -1,5 +1,6 @@
 [devwebservers]
 localhost ansible_connection=local
+test01    ansible_connection=ssh ansible_ssh_host=10.128.56.88
 
 [devdbservers]
 

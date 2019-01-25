@@ -3,7 +3,7 @@
 - name: Basic-Test
   hosts: develop
   roles:
-    - basic_spec
+    - spec_basic
 
 - name: Basic-Os-Test
   hosts: develop
