@@ -1,6 +1,0 @@
-- name: parentgroup
-  hosts: parentgroup
-  connection: local
-  roles:
-  - test
-  - test/nested

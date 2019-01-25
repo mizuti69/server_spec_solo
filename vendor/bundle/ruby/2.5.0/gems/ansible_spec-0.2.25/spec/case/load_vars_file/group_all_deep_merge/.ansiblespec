@@ -1,5 +1,0 @@
----
--
-  playbook: site.yml
-  inventory: hosts
-  hash_behaviour: merge

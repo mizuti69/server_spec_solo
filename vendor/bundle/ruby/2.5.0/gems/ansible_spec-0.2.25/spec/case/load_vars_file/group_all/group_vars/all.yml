@@ -1,6 +1,0 @@
----
-role_var:  "group all"
-site_var:  "group all"
-host_var:  "group all"
-group_var: "group all"
-group_all_var: "group all"

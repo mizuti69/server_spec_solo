@@ -1,5 +1,0 @@
-foo: "foofoo-production"
-bar: ["bar1-production", "bar2-production", "bar3-production"]
-env_name: "production"
-
-my_common_libs_version: "1.0"
