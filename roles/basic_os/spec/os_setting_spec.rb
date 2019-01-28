@@ -15,12 +15,22 @@ describe 'Network Parameter Test' do
     describe interface("#{interfaces}") do
       it { should be_up }
     end
+    describe command("nmcli -p c show #{interfaces} |grep connection.id |awk '{print $2}'") do
+      its(:stdout) { should match "#{interfaces}" }
+    end
   end
 
   # networkinterface method check
   property['system_interface'].each do |interfaces|
     describe command("nmcli -p c show #{interfaces} |grep ipv4.method |awk '{print $2}'") do
       its(:stdout) { should match property['system_interface_ipv4method'] }
+      # static only test (not good) 
+      status = Specinfra.backend.run_command("nmcli -p c show #{interfaces} |grep ipv4.method |awk '{print $2}'")
+      if status.stdout == "manual\n"
+        describe command("nmcli -p c show #{interfaces} |grep ipv4.addresses |awk '{print $2}'") do
+          its(:stdout) { should match property['system_interface_ipv4address'] }
+        end
+      end
     end
     describe command("nmcli -p c show #{interfaces} |grep ipv6.method |awk '{print $2}'") do
       its(:stdout) { should match property['system_interface_ipv6method'] }
@@ -127,10 +137,40 @@ describe 'OS setting' do
     its(:content) { should match "^lcredit = #{property['system_default_pass_lcredit']}" }
   end
 
+  # pam setting check
+  describe file("/etc/pam.d/system-auth-ac") do
+    its(:content) { should match "^auth        required      #{property['system_pam_auth_lock']}" }
+    #its(:content) { should match "^auth        [default=die] #{property['system_pam_auth_die']}" }
+    its(:content) { should match "^account     required      #{property['system_pam_auth_faillock']}" }
+    its(:content) { should match "^password    required      #{property['system_pam_auth_pwquality']}" }
+  end
+  describe file("/etc/pam.d/password-auth-ac") do
+    its(:content) { should match "^auth        required      #{property['system_pam_auth_lock']}" }
+    #its(:content) { should match "^auth        [default=die] #{property['system_pam_auth_die']}" }
+    its(:content) { should match "^account     required      #{property['system_pam_auth_faillock']}" }
+    its(:content) { should match "^password    required      #{property['system_pam_auth_pwquality']}" }
+  end
+
   # su/sudo check
+  # Modification and addition of test code is necessary according to the environment
   property['system_sudo_set'].each do |sudoers|
     describe file("#{sudoers}") do
       it { should exist }
+=begin in comment
+      status = Specinfra.backend.run_command("basename #{sudoers}")
+      if status.stdout == "default\n"
+        describe file("#{sudoers}") do
+          its(:content) { should match "Defaults timestamp_timeout = #{property['system_sudo_default_timeout']}" }
+          its(:content) { should match "Defaults passwd_tries = #{property['system_sudo_default_passtries']}" }
+        end
+      end
+      status = Specinfra.backend.run_command("basename #{sudoers}")
+      if status.stdout == "opegrp\n"
+        describe file("#{sudoers}") do
+          its(:content) { should match "#{property['system_sudo_opegrp_permit']}\n" }
+        end
+      end
+=end out comment
     end
   end
 
@@ -170,7 +210,7 @@ describe 'OS setting' do
       it { should be_running }
       # active only test (not good)
       status = Specinfra.backend.run_command("systemctl status firewalld |awk '/Active/{print $2}'")
-      if status.stdout == "active\n"
+      if status. == "active\n"
         property['system_interface'].each do |interfaces|
           describe command("nmcli -p c show #{interfaces} |grep connection.zone |awk '{print $2}'") do
             its(:stdout) { should match property['firewalld_zone'] }
@@ -255,8 +295,14 @@ describe 'ssh setting' do
     it { should be_running }
   end
   describe file("/etc/ssh/sshd_config") do
+    its(:content) { should match "^Port #{property['ssh_port']}" }
     its(:content) { should match "^PermitRootLogin #{property['ssh_permit_rootlogin']}" }
+    its(:content) { should match "^PubkeyAuthentication #{property['ssh_pubkey_auth']}" }
     its(:content) { should match "^PasswordAuthentication #{property['ssh_password_auth']}" }
+    its(:content) { should match "^ChallengeResponseAuthentication #{property['ssh_cr_auth']}" }
+    its(:content) { should match "^UsePAM #{property['ssh_usedns']}" }
+    its(:content) { should match "^Subsystem sftp #{property['ssh_subsystem']}" }
+    its(:content) { should match "^AllowGroups #{property['ssh_allow_groups']}" }
   end
 end
 

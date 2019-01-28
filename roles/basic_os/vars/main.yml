@@ -6,6 +6,7 @@ system_interface:
 
 # NIC ipv4.method
 system_interface_ipv4method: auto
+system_interface_ipv4address: 10.128.57.29/24 
 system_interface_ipv6method: auto
 
 # name server
@@ -45,9 +46,19 @@ system_default_pass_dcredit: 1
 system_default_pass_ucredit: 1
 system_default_pass_lcredit: 1
 
+# pam settings
+system_pam_auth_lock: 'pam_faillock.so preauth silent audit deny=10 unlock_time=120'
+system_pam_auth_die: 'pam_faillock.so preauth silent authfail audit deny=10 unlock_time=120'
+system_pam_auth_faillock: 'pam_faillock.so'
+system_pam_auth_pwquality: 'pam_pwquality.so'
+
 # su/sudo parmission
 system_sudo_set:
   - '/etc/sudoers.d/default'
+  - '/etc/sudoers.d/opegrp'
+system_sudo_default_timeout: 0
+system_sudo_default_passtries: 3
+system_sudo_opegrp_permit: '%opegrp ALL=(ALL) ALL'
 
 # install pakages
 system_package_installs:
@@ -78,8 +89,14 @@ logrotate_suffix: dateext
 logrotate_compressed: '#compress'
 
 # ssh
+ssh_port: 22
 ssh_permit_rootlogin: 'yes'
+ssh_pubkey_auth: 'yes'
 ssh_password_auth: 'yes'
+ssh_cr_auth: 'no'
+ssh_usedns: 'yes'
+ssh_subsystem: '/usr/libexec/openssh/sftp-server'
+ssh_allow_groups: 'root'
 
 # chrony
 chrony_port: '0'
