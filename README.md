@@ -79,19 +79,19 @@ $ vim develop.yml
 ### Step3
 Adjust test case to run  
 Write test case in `spec`  
-`vars` is a file that defines the desired test results  
+`defaults` is a file that defines the desired test results  
 
 ```
 /opt/spec.test/roles
 |--basic_os
 |  |--spec
 |  |  |--os_setting_spec.rb
-|  |--vars
+|  |--defaults
 |  |  |--main.yml
 |--spec_basic
 |  |--spec
 |  |  |--server_spec.rb
-|  |--vars
+|  |--defaults
 |  |  |--main.yml
 ```
 
