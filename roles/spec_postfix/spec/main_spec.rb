@@ -53,5 +53,8 @@ describe 'postfix setting' do
         end
       end
     end
+    describe port(25) do
+      it { should be_listening.with('tcp') }
+    end
   end
 end
