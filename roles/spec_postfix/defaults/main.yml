@@ -1,0 +1,22 @@
+---
+
+postfix_host_type: server
+postfix_myhostname: localhost.localdomain
+postfix_mydomain: localdomain
+postfix_mydestination: '$myhostname, localhost.$mydomain, localhost'
+postfix_heloname: '$myhostname'
+postfix_vrfy_command: 'no'
+postfix_mailname: Postfix
+postfix_helo_required: 'no'
+postfix_help_restrictions: 'permit_mynetworks, reject_invalid_hostname'
+postfix_recipient_restrictions: 'permit_mynetworks, reject_unauth_destination'
+postfix_client_restrictions: 'permit_mynetworks, permit'
+postfix_sender_restrictions: 'permit_mynetworks,reject_unknown_sender_domain,reject_sender_login_mismatch'
+postfix_etrn_restrictions: 'permit_mynetworks, reject_invalid_hostname'
+postfix_mynetwork: '127.0.0.0/8 [::1]/128'
+postfix_inetinterfaces: localhost
+postfix_header_checks: 'regexp:/etc/postfix/header_checks'
+postfix_canonical_classes: 'envelope_sender, header_sender'
+postfix_canonical_maps: 'regexp:/etc/postfix/sender_canonical'
+postfix_min_user: 'no'
+postfix_rfc821_envelopes: 'no'
