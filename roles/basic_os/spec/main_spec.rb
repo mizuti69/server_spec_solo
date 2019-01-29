@@ -103,7 +103,7 @@ describe 'OS setting' do
   # history customizee check
   describe file('/etc/profile.d/history.sh') do
     it { should exist }
-    its(:content) { should match "HISTTIMEFORMAT=\'%Y\/%m\/%d %H:%M:%S \'" }
+    its(:content) { should match Regexp.escape("HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '") }
   end
 
   # console customize check
@@ -140,13 +140,13 @@ describe 'OS setting' do
   # pam setting check
   describe file("/etc/pam.d/system-auth-ac") do
     its(:content) { should match "^auth        required      #{property['system_pam_auth_lock']}" }
-    #its(:content) { should match "^auth        [default=die] #{property['system_pam_auth_die']}" }
+    its(:content) { should match /^#{Regexp.escape("auth        [default=die] #{property['system_pam_auth_die']}")}/ }
     its(:content) { should match "^account     required      #{property['system_pam_auth_faillock']}" }
     its(:content) { should match "^password    required      #{property['system_pam_auth_pwquality']}" }
   end
   describe file("/etc/pam.d/password-auth-ac") do
     its(:content) { should match "^auth        required      #{property['system_pam_auth_lock']}" }
-    #its(:content) { should match "^auth        [default=die] #{property['system_pam_auth_die']}" }
+    its(:content) { should match /^#{Regexp.escape("auth        [default=die] #{property['system_pam_auth_die']}")}/ }
     its(:content) { should match "^account     required      #{property['system_pam_auth_faillock']}" }
     its(:content) { should match "^password    required      #{property['system_pam_auth_pwquality']}" }
   end
@@ -324,7 +324,7 @@ describe 'chrony setting' do
           its(:content) { should match "^leapsecmode #{property['chrony_leapsecmode']}" }
         end
         describe command("chronyc sources") do
-          its(:stdout) { should match "\^\* " }
+          its(:stdout) { should match Regexp.escape("^* ") }
         end
       end
     end
@@ -342,8 +342,8 @@ describe 'sysstat setting' do
       status = Specinfra.backend.run_command("systemctl status sysstat |awk '/Active/{print $2}'")
       if status.stdout == "active\n"
         describe file('/etc/cron.d/sysstat') do
-          its(:content) { should match /^\*\/5 \* \* \* \* root \/usr\/lib64\/sa\/sa1 1 1/ }
-          its(:content) { should match /^58 23 \* \* \* root \/usr\/lib64\/sa\/sa2 -A/ }
+          its(:content) { should match /^#{Regexp.escape("*/5 * * * * root /usr/lib64/sa/sa1 1 1")}/ }
+          its(:content) { should match /^#{Regexp.escape("58 23 * * * root /usr/lib64/sa/sa2 -A")}/ }
         end
         describe file('/etc/sysconfig/sysstat') do
           its(:content) { should match "^HISTORY=#{property['sysstat_history']}" }
