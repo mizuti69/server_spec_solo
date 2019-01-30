@@ -1,6 +1,7 @@
 ---
 
 postfix_host_type: server
+postfix_version: 2.10.1-7
 postfix_myhostname: localhost.localdomain
 postfix_mydomain: localdomain
 postfix_mydestination: '$myhostname, localhost.$mydomain, localhost'
