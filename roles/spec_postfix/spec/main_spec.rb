@@ -4,6 +4,7 @@ require 'spec_helper'
 describe 'postfix setting' do
   describe package('postfix') do
     it { should be_installed }
+    it { should be_installed.with_version("#{property['postfix_version']}") }
     describe service('postfix') do
       it { should be_enabled }
       it { should be_running }
