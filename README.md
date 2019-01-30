@@ -73,7 +73,7 @@ $ vim develop.yml
 - name: Basic-Os-Test
   hosts: develop
   roles:
-    - basic_os
+    - spec_os
 ```
 
 ### Step3
@@ -83,7 +83,7 @@ Write test case in `spec`
 
 ```
 /opt/spec.test/roles
-|--basic_os
+|--spec_os
 |  |--spec
 |  |  |--os_setting_spec.rb
 |  |--defaults
