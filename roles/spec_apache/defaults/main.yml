@@ -1,0 +1,14 @@
+---
+
+apache_version: 2.4.6
+apache_mpm: prefork
+apache_listen_ports:
+  - 80
+apache_include_conf:
+  - '/etc/httpd/conf.d/autoindex.conf'
+  - '/etc/httpd/conf.d/userdir.conf'
+  - '/etc/httpd/conf.d/welcome.conf'
+apache_sub_packages:
+  - mod_ssl
+  - httpd-devel
+
