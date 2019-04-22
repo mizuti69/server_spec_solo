@@ -8,5 +8,5 @@
 - name: Basic-Os-Test
   hosts: develop
   roles:
-    - basic_os
+    - spec_os
 
