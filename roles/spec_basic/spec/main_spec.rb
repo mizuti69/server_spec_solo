@@ -16,7 +16,7 @@ describe command("free -m |awk '/Swap/{print $2}'") do
 end
 
 # disk size /
-describe command("df -h |awk '/\\/$/{print $2}' |cut -d '.' -f1") do
+describe command("df -h |awk '/\\/$/{print $1}' |cut -d 'G' -f1") do
   its('stdout.to_i') { should be >= property['system_disk_size'] }
 end
 
