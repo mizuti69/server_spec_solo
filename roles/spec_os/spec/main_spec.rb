@@ -176,10 +176,9 @@ describe 'OS setting' do
 
   # yum setting check
   describe file("/etc/yum.conf") do
-    its(:content) { should match "^exclude=#{property['system_yum_exclude']}" }
+    its(:content) { should match /^#{Regexp.escape("exclude=#{property['system_yum_exclude']}")}/ }
     its(:content) { should match "^keepcache=#{property['system_yum_keepcache']}" }
   end
-=begin in comment
   describe file("/etc/yum.repos.d/epel.repo") do
     it { should exist }
     # active only test (not good)
@@ -200,9 +199,10 @@ describe 'OS setting' do
       end
     end
   end  
-=end out comment
+end
 
   # firewalld enable check
+describe 'Firewalld setting' do
   describe package('firewalld') do
     it { should be_installed }
     describe service('firewalld') do
@@ -210,7 +210,7 @@ describe 'OS setting' do
       it { should be_running }
       # active only test (not good)
       status = Specinfra.backend.run_command("systemctl status firewalld |awk '/Active/{print $2}'")
-      if status. == "active\n"
+      if status.stdout == "active\n"
         property['system_interface'].each do |interfaces|
           describe command("nmcli -p c show #{interfaces} |grep connection.zone |awk '{print $2}'") do
             its(:stdout) { should match property['firewalld_zone'] }
@@ -249,15 +249,14 @@ describe 'Cron setting' do
     its(:content) { should match "^START_HOURS_RANGE=#{property['cron_anacron_range']}" }
     its(:content) { should match "^MAILTO=root" }
   end
-=begin in comment
   describe file("/etc/crontab") do
-    its(:content) { should match "^05 0 \* \* \* root run-parts \/etc\/cron.daily" }
-    its(:content) { should match "^25 0 \* \* 0 root run-parts \/etc\/cron.weekly" }
-    its(:content) { should match "^45 0 1 \* \* root run-parts \/etc\/cron.monthly" }
+    its(:content) { should match /^#{Regexp.escape("05 0 * * * root run-parts /etc/cron.daily")}/ }
+    its(:content) { should match /^#{Regexp.escape("25 0 * * 0 root run-parts /etc/cron.weekly")}/ }
+    its(:content) { should match /^#{Regexp.escape("45 0 1 * * root run-parts /etc/cron.monthly")}/ }
     its(:content) { should match "^MAILTO=root" }
   end
   describe file("/etc/cron.d/0hourly") do
-    its(:content) { should match "^01 \* \* \* \* root run-parts \/etc\/cron.hourly" }
+    its(:content) { should match /^#{Regexp.escape("01 * * * * root run-parts /etc/cron.hourly")}/ }
     its(:content) { should match "^MAILTO=root" }
   end
   describe file("/etc/cron.daily/0anacron") do
@@ -275,7 +274,6 @@ describe 'Cron setting' do
     it { should be_executable }
     its(:content) { should match /cron.monthly/ }
   end
-=end out comment
 end
 
 # logrotate setting check
