@@ -29,7 +29,7 @@ system_boot_mode: multi-user.target
 system_selinux: enforcing
 
 # os locale
-system_locale: LANG="ja_JP.UTF-8"
+system_locale: LANG=ja_JP.utf-8
 
 # os time zone
 system_time_zone: JST-9
@@ -42,6 +42,7 @@ system_default_user_home: /home
 
 # password setting
 system_default_pass_minlen: 9
+system_su_wheel : 'yes'
 system_default_pass_dcredit: 1
 system_default_pass_ucredit: 1
 system_default_pass_lcredit: 1
@@ -56,9 +57,9 @@ system_pam_auth_pwquality: 'pam_pwquality.so'
 system_sudo_set:
   - '/etc/sudoers.d/default'
   - '/etc/sudoers.d/opegrp'
-system_sudo_default_timeout: 0
-system_sudo_default_passtries: 3
-system_sudo_opegrp_permit: '%opegrp ALL=(ALL) ALL'
+#system_sudo_default_timeout: 0
+#system_sudo_default_passtries: 3
+#system_sudo_opegrp_permit: '%opegrp ALL=(ALL) ALL'
 
 # install pakages
 system_package_installs:
@@ -66,7 +67,7 @@ system_package_installs:
   - git
 
 # yum
-system_yum_exclude:
+system_yum_exclude: kernel* redhat-release* cloud-init
 system_yum_keepcache: '0'
 system_yum_epel_enable: 'False'
 system_yum_ius_enable: 'False'
