@@ -28,6 +28,9 @@ system_boot_mode: multi-user.target
 # selinux status
 system_selinux: enforcing
 
+# hostname
+system_hostname: localhost
+
 # os locale
 system_locale: LANG=ja_JP.utf-8
 
@@ -72,6 +75,9 @@ system_yum_keepcache: '0'
 system_yum_epel_enable: 'False'
 system_yum_ius_enable: 'False'
 
+system_disable_service:
+  - kdump
+
 # firewalld
 firewalld_zone: --
 firewalld_lockdown: 'no'
@@ -100,6 +106,11 @@ ssh_subsystem: '/usr/libexec/openssh/sftp-server'
 ssh_allow_groups: 'root'
 
 # chrony
+chrony_server: 
+  - 0.jp.pool.ntp.org
+  - 1.jp.pool.ntp.org
+  - 2.jp.pool.ntp.org
+  - 3.jp.pool.ntp.org
 chrony_port: '0'
 chrony_leapsecmode: slew
 

@@ -90,6 +90,11 @@ describe 'OS setting' do
     end
   end
 
+  # hostname check
+  describe file("/etc/hostname") do
+    its(:content) { should match property['system_hostname'] }
+  end
+
   # os locale check
   describe file("/etc/locale.conf") do
     its(:content) { should match "^#{property['system_locale']}" }
@@ -317,12 +322,17 @@ describe 'chrony setting' do
         describe command("timedatectl |awk -F\: '/NTP enabled/{print $2}'") do
           its(:stdout) { should match /yes/ }
         end
+        property['chrony_server'].each do |seervers|
+          describe file("/etc/chrony.conf") do
+            its(:content) { should match "^server #{seervers}" }
+          end
+        end
         describe file("/etc/chrony.conf") do
           its(:content) { should match "^port #{property['chrony_port']}" }
           its(:content) { should match "^leapsecmode #{property['chrony_leapsecmode']}" }
         end
         describe command("chronyc sources") do
-          its(:stdout) { should match Regexp.escape("^* ") }
+          its(:stdout) { should match Regexp.escape("^* #{property['chrony_server'][0]}") }
         end
       end
     end
@@ -356,6 +366,16 @@ describe 'install tools' do
   property['system_package_installs'].each do |packages|
     describe package("#{packages}") do
       it { should be_installed }
+    end
+  end
+end
+
+# stop unnecessary services
+describe 'stop services' do
+  property['system_disable_service'].each do |services|
+    describe service("#{services}") do
+      it { should_not be_enabled }
+      it { should_not be_running }
     end
   end
 end
