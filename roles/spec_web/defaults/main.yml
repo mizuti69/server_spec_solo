@@ -12,3 +12,10 @@ apache_sub_packages:
   - mod_ssl
   - httpd-devel
 
+apache_rewrite_rule:
+  - from: https://fromweb.com
+    to: https://toweb.com
+    status: 301
+  - from: https://hogehoge.com
+    to: https://okeoke.com/
+    status: 200
